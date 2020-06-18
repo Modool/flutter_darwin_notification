@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  bild:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -21,3 +21,11 @@ jobs:
       uses: geowatson/flutter-latest@1.0.0
       with:
         args: test
+
+    - name: cd directory
+      working-directory: ./example
+      
+    - name: build example
+      uses: geowatson/flutter-latest@1.0.0
+      with:
+        args: build aot
