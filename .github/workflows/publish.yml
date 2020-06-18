@@ -12,8 +12,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: 'Test And Publish'
-        id: publish
-        uses: modool/dart-package-publisher@master
+      - uses: modool/flutter-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
