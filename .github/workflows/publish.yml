@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: '>> test & publish <<'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - name: 'Test And Publish'
         id: publish
         uses: modool/dart-package-publisher@master
         with:
