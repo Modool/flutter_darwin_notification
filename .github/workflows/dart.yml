@@ -25,5 +25,5 @@ jobs:
     - name: build example
       uses: geowatson/flutter-latest@1.0.0
       with:
-        working-directory: ./example
+        entryPoint: ./example/lib/main.dart
         args: build aot
