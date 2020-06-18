@@ -22,7 +22,7 @@ jobs:
       with:
         args: test
 
-    - name: cd directory
+    - name: change working directory
       working-directory: ./example
       run: ls -R
       
