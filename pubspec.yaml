@@ -1,7 +1,6 @@
 name: flutter_darwin_notification
 description: A new flutter plugin project.
 version: 0.0.1
-author: xulinfeng<modool.dev@gmail.com>
 homepage: https://github.com/modool/flutter_darwin_notification
 
 environment:
@@ -17,4 +16,6 @@ dev_dependencies:
 
 flutter:
   plugin:
-    pluginClass: FlutterDarwinNotficationPlugin
+    platforms:
+      ios:
+        pluginClass: FlutterDarwinNotficationPlugin
