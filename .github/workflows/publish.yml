@@ -15,9 +15,3 @@ jobs:
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
           relativePath: mapper
-      - name: 'Commit release tag'
-        if: steps.publish.outputs.success
-        uses: hole19/git-tag-action@master
-        env:
-          TAG: ${{steps.publish.outputs.package}}-${{steps.publish.outputs.localVersion}}
-          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
