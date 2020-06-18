@@ -1,8 +1,11 @@
-import 'package:flutter_darwin_notification/flutter_darwin_notification.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_darwin_notification/flutter_darwin_notification.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   const channel =
       MethodChannel('modool.github.com/plugins/darwin_notification');
 
@@ -76,7 +79,7 @@ void main() {
 
     test('post notification', () async {
       final success = await notificationCenter
-          .postNotification('name', string: '1', userInfo: {'1': '2'});
+          .postNotification('name', object: '1', userInfo: {'1': '2'});
       expect(success, true);
       expect(
         log,
@@ -85,7 +88,7 @@ void main() {
             'postNotification',
             arguments: {
               'name': 'name',
-              'string': '1',
+              'object': '1',
               'userInfo': {'1': '2'},
               'deliverImmediately': true,
               'options': 0,
@@ -201,7 +204,7 @@ void main() {
       stream.listen(
         expectAsync1(
           (result) {
-            expect(result.string, '1');
+            expect(result.object<String>(), '1');
             expect(result.userInfo(), {'1': 1});
           },
         ),
@@ -214,7 +217,7 @@ void main() {
             'receiveNotification',
             {
               'name': 'name',
-              'string': '1',
+              'object': '1',
               'behavior': Behavior.deliverImmediately.index,
               'userInfo': const {'1': 1},
             },
@@ -232,7 +235,7 @@ void main() {
       stream.listen(
         expectAsync1(
           (result) {
-            expect(result.string, '1');
+            expect(result.object<String>(), '1');
             expect(result.userInfo(), {'1': 1});
           },
         ),
@@ -245,7 +248,7 @@ void main() {
             'receiveNotification',
             {
               'name': 'name',
-              'string': '1',
+              'object': '1',
               'behavior': Behavior.coalesce.index,
               'userInfo': const {'1': 1},
             },

@@ -1,6 +1,6 @@
 # Flutter Darwin Notification Plugin
 
-A native runtime plugin for Flutter. This plugin provides a cross-platform (iOS, Android) API to request and call native runtime.
+A iOS Darwin Notification plugin for Flutter. This plugin provides a cross-platform (iOS, Android) API to request and call native darwin notification center.
 
 ![Flutter Test](https://github.com/Modool/flutter_darwin_notification/workflows/Flutter%20Test/badge.svg) [![pub package](https://img.shields.io/pub/v/flutter_darwin_notification.svg)](https://pub.dartlang.org/packages/flutter_darwin_notification) [![Build Status](https://app.bitrise.io/app/fa4f5d4bf452bcfb/status.svg?token=HorGpL_AOw2llYz39CjmdQ&branch=master)](https://app.bitrise.io/app/fa4f5d4bf452bcfb) [![style: effective dart](https://img.shields.io/badge/style-effective_dart-40c4ff.svg)](https://github.com/tenhobi/effective_dart)
 
@@ -23,7 +23,18 @@ dependencies:
 ```dart
 
 import 'package:flutter_darwin_notification/flutter_darwin_notification.dart';
+
+/// New instance
 final center = DarwinNotificationCenter();
+
+/// Observe notification 
+final stream = center.observe(name: 'notification-name', behavior: Behavior.coalesce);
+stream.listen((result) {
+  /// Do something    
+});
+
+/// Post notification 
+center.postNotification('notification-name', object: '1', userInfo: {'1': '2'});
 
 ```
 

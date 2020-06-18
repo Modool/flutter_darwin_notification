@@ -17,9 +17,13 @@ enum Behavior {
 }
 
 class Result {
-  Result(this.string, this._userInfo);
+  Result(this._object, this._userInfo);
 
-  final String string;
+  final dynamic _object;
+  T object<T>() {
+    // ignore: avoid_as
+    return _object as T;
+  }
 
   final dynamic _userInfo;
   T userInfo<T>() {
@@ -142,14 +146,14 @@ class DarwinNotificationCenter {
   // If center is a Darwin notification center, this value is ignored. So, object and userInfo can be delete
   Future<bool> postNotification(
     String name, {
-    String string,
+    object,
     Map<String, dynamic> userInfo,
     bool deliverImmediately = true,
     int options = 0,
   }) {
     return _channel.invokeMethod<bool>('postNotification', {
       'name': name,
-      'string': string,
+      'object': object,
       'userInfo': userInfo,
       'deliverImmediately': deliverImmediately,
       'options': options,
@@ -172,9 +176,9 @@ class DarwinNotificationCenter {
     final observer = _observers[arguments['name']];
     if (observer == null) return;
 
-    final string = arguments['string'];
+    final object = arguments['object'];
     final userInfo = arguments['userInfo'];
-    final result = Result(string, userInfo);
+    final result = Result(object, userInfo);
 
     final index = arguments['behavior'];
     if (index == null) {

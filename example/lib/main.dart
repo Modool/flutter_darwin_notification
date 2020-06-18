@@ -37,9 +37,9 @@ class _MyAppState extends State<MyApp> {
     }));
 
     center.postNotification('testNotification',
-        string: '1', deliverImmediately: false);
+        object: '1', deliverImmediately: false);
 
-    center.postNotification('testNotification2', string: '1');
+    center.postNotification('testNotification2', object: '1');
   }
 
   @override
