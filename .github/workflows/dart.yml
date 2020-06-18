@@ -11,19 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-
-    - name: install dependencies
-      uses: geowatson/flutter-latest@1.0.0
+    - uses: subosito/flutter-action@v1
       with:
-        args: pub get
-
-    - name: run tests
-      uses: geowatson/flutter-latest@1.0.0
-      with:
-        args: test
-
-    - name: build example
-      uses: geowatson/flutter-latest@1.0.0
-      with:
-        entryPoint: ./example/lib/main.dart
-        args: build aot
+        flutter-version: '1.9.x' 
+        channel: 'stable' 
+    - run: flutter pub get
+    - run: flutter test
+    - run: cd ./example
+    - run: flutter build aot
