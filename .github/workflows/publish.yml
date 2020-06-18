@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: '>> test & publish <<'
         id: publish
-        uses: k-paxian/dart-package-publisher@master
+        uses: modool/dart-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
