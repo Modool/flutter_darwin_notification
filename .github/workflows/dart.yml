@@ -24,6 +24,7 @@ jobs:
 
     - name: cd directory
       working-directory: ./example
+      run: ls -R
       
     - name: build example
       uses: geowatson/flutter-latest@1.0.0
