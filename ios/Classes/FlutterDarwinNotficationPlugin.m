@@ -6,16 +6,22 @@ static NSString * const FlutterDarwinNotficationRemoveObserver = @"removeObserve
 static NSString * const FlutterDarwinNotficationRemoveAllObservers = @"removeAllObservers";
 static NSString * const FlutterDarwinNotficationReceiveNotification = @"receiveNotification";
 
-static FlutterMethodChannel *channel;
+@interface FlutterDarwinNotficationPlugin ()
+
+@property (nonatomic, strong, readonly) FlutterMethodChannel *channel;
+ 
+@end
 
 @implementation FlutterDarwinNotficationPlugin
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-    channel = [FlutterMethodChannel
-               methodChannelWithName:@"modool.github.com/plugins/darwin_notification"
+    FlutterMethodChannel *channel = [FlutterMethodChannel
+               methodChannelWithName:@"com.modool.flutter/plugins/darwin_notification"
                binaryMessenger:[registrar messenger]];
-    FlutterDarwinNotficationPlugin* instance = [[FlutterDarwinNotficationPlugin alloc] init];
-    [registrar addMethodCallDelegate:instance channel:channel];
+    FlutterDarwinNotficationPlugin *plugin = [[FlutterDarwinNotficationPlugin alloc] init];
+    plugin->_channel = channel;
+    
+    [registrar addMethodCallDelegate:plugin channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -39,6 +45,10 @@ static FlutterMethodChannel *channel;
         return;
     }
     result(error);
+}
+
+- (void)dealloc {
+    CFNotificationCenterRemoveEveryObserver(CFNotificationCenterGetDarwinNotifyCenter(), (__bridge const void *)(self));
 }
 
 - (FlutterError *)_addObserverWithName:(NSString *)name behavior:(CFNotificationSuspensionBehavior)behavior {
@@ -107,7 +117,10 @@ static void onBehaviorDeliverringImmediately(CFNotificationCenterRef center, voi
 
 
 static void onDarwinNotificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo, CFNotificationSuspensionBehavior behavior) {
+
+    FlutterDarwinNotficationPlugin *plugin = (__bridge FlutterDarwinNotficationPlugin *)observer;
     NSMutableDictionary *arguments = [@{@"name": (__bridge NSString *)name} mutableCopy];
+
     id obj = (__bridge id)object;
     if (obj && ([obj isKindOfClass:NSArray.class] ||
         [obj isKindOfClass:NSDictionary.class] ||
@@ -119,7 +132,7 @@ static void onDarwinNotificationCallback(CFNotificationCenterRef center, void *o
     if (behavior != 0) arguments[@"behavior"] = @(behavior);
     if (userInfo) arguments[@"userInfo"] = (__bridge NSDictionary *)userInfo;
     
-    [channel invokeMethod:FlutterDarwinNotficationReceiveNotification arguments:arguments.copy];
+    [plugin.channel invokeMethod:FlutterDarwinNotficationReceiveNotification arguments:arguments.copy];
 }
 
 @end

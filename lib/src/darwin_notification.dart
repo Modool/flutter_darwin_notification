@@ -111,7 +111,7 @@ class _Observer {
 class DarwinNotificationCenter {
   DarwinNotificationCenter() {
     _channel = MethodChannel(
-      'modool.github.com/plugins/darwin_notification',
+      'com.modool.flutter/plugins/darwin_notification',
     );
     _channel.setMethodCallHandler(_onMethodCallback);
   }

@@ -7,7 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   const channel =
-      MethodChannel('modool.github.com/plugins/darwin_notification');
+      MethodChannel('com.modool.flutter/plugins/darwin_notification');
 
   final notificationCenter = DarwinNotificationCenter();
   final log = <MethodCall>[];
@@ -211,7 +211,7 @@ void main() {
       );
 
       await channel.binaryMessenger.handlePlatformMessage(
-        'modool.github.com/plugins/darwin_notification',
+        'com.modool.flutter/plugins/darwin_notification',
         channel.codec.encodeMethodCall(
           MethodCall(
             'receiveNotification',
@@ -242,7 +242,7 @@ void main() {
       );
 
       await channel.binaryMessenger.handlePlatformMessage(
-        'modool.github.com/plugins/darwin_notification',
+        'com.modool.flutter/plugins/darwin_notification',
         channel.codec.encodeMethodCall(
           MethodCall(
             'receiveNotification',
@@ -265,7 +265,7 @@ void main() {
 
       try {
         await channel.binaryMessenger.handlePlatformMessage(
-          'modool.github.com/plugins/darwin_notification',
+          'com.modool.flutter/plugins/darwin_notification',
           channel.codec.encodeMethodCall(
             MethodCall(
               'receiveNotification',
