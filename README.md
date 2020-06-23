@@ -15,7 +15,7 @@ To use this plugin, add `flutter_darwin_notification` as a [dependency in your p
 
 ```yaml
 dependencies:
-  flutter_darwin_notification: 0.0.1
+  flutter_darwin_notification: any
 ```
 
 ## API
